@@ -10,29 +10,34 @@ let sheetSize2 = 16* 16;
   setResolutionBtn.addEventListener('click', function() {
   sheetSize = prompt('Size of worksheet:', 16);
   sheetSize2 = sheetSize * sheetSize;
+  setWorksheet()
 });
 
-/* function sizeArray() {
-  let sheetSizeArray = [];
-  for(let i = 0; i < sheetSize; i++) {
-  sheetSizeArray.push('');
-}}; */
 
 let num = 0;
 
 // Create Worksheet
-// paintContainer.setAttribute('grid-template-columns', auto);
-for (let i = 0; i < sheetSize; i++) { 
-  let rowInPaint = document.createElement('div');
-  rowInPaint.classList.add('rows');
-  paintContainer.appendChild(rowInPaint);
-  for(let j = 0; j < sheetSize; j++) {
-    num += 1;
-    let divInPaint = document.createElement('div');
-    divInPaint.innerHTML = '';
-    divInPaint.className = `cell`;
-    rowInPaint.appendChild(divInPaint);
-  }
+function setWorksheet() {
+  removeAllChild()
+
+  for (let i = 0; i < sheetSize; i++) { 
+    let rowInPaint = document.createElement('div');
+    rowInPaint.classList.add('rows');
+    paintContainer.appendChild(rowInPaint);
+
+    for(let j = 0; j < sheetSize; j++) {
+      num += 1;
+      let divInPaint = document.createElement('div');
+      divInPaint.innerHTML = '';
+      divInPaint.className = `cell`;
+      rowInPaint.appendChild(divInPaint);
+    };
+  };
 };
 
+setWorksheet()
 
+  function removeAllChild() {
+    const myNode = document.querySelector('.paintContainer');
+    myNode.innerHTML = '';
+    };
