@@ -1,0 +1,29 @@
+.paintContainer {
+  border: 1px solid black;
+  width: 500px;
+  height: 500px;
+  margin: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+button {
+  margin: 20px;
+  margin-left: 100px;
+}
+
+.rows {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.cell {
+  flex: 1 1 auto;
+}
+
+.cell:hover {
+background-color: black;
+}
