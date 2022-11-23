@@ -5,7 +5,10 @@ const paintContainer = document.querySelector('.paintContainer');
 const setResolutionBtn = document.querySelector('#setResolutionBtn');
 const clearBtn = document.querySelector('#clearBtn');
 const colorBtn = document.querySelectorAll('#colorBtn');
-let color = 'black'
+const colorPicker = document.querySelectorAll('#colorPicker');
+const pickColor = document.querySelectorAll('#pickColor');
+let mode = 'black';
+let colorRandom = 'pink';
 let sheetSize = 16;
 let sheetSize2 = 16 * 16;
 
@@ -88,6 +91,19 @@ document.addEventListener('mouseup', function(){
 
 // All of above didn't work after use buttons
 
+// Choose mode
+
+colorBtn.forEach((btn) => {
+  btn.addEventListener('click', function chooseMode(e) {
+    if (e.target.className == 'black') mode = 'black';
+    else if (e.target.className == 'white') mode = 'white';
+    else if (e.target.className == 'randomColor') mode = 'randomColor';
+    else if (e.target.className == 'rainbow') mode = 'rainbow'; randomColor();
+    return;
+  })
+});
+
+
 // Draw(e)
 let trigger = false;
 document.addEventListener('mousedown', function(){
@@ -98,15 +114,49 @@ document.addEventListener('mouseup', function(){
 });
 
 function draw(e) {
-  if (e.type === 'mouseover' && trigger === true 
-  || e.type === 'mousedown') {
-    e.target.style.backgroundColor = color;
+  if (e.type === 'mouseover' && !trigger === true) return;
+  if (mode === 'black')  
+    e.target.style.backgroundColor = 'black';
+  if (mode === 'white')  
+    e.target.style.backgroundColor = 'white';
+  if (mode === 'rainbow')  
+    e.target.style.backgroundColor = choiceRainbow();
+  if (mode === 'randomColor') {
+    e.target.style.backgroundColor = colorRandom;
+  }
+};
+
+
+// Rainbow
+function rainbow(e) {
+  if (mode === 'rainbow') {
+    if (e.type === 'mouseover') {
+      return choiceRainbow();
+    };
   };
 };
 
-// Change color
-colorBtn.forEach((newColor) => {
-  newColor.addEventListener('click', (e) => {
-    color = e.target.className;
-  })
-});
+function choiceRainbow() {
+  return `rgb(${(Math.random()*256).toFixed(0)}, ${(Math.random()*256).toFixed(0)}, ${(Math.random()*256).toFixed(0)}, ${Math.random().toFixed(3)})`;
+};
+
+
+// Pick random color
+function randomColor() {
+  return colorRandom = `hsl(${(Math.random()*360).toFixed(0)}, 100%, 50%)`;
+};
+
+// TEST 4 - Choose Color - don't work for rainbow
+/* let mode = '';
+colorBtn.forEach((btn) => {
+  btn.addEventListener('click', function chooseColor(e) {
+    if (e.target.className == 'black') color = 'black';
+    else if (e.target.className == 'white') color = 'white';
+    else if (e.target.className == 'randomColor') color = randomColor();
+    else if (e.target.className == 'rainbow') {
+      mode = e.target.className;
+      color = rainbow(e);
+    }
+    return;
+  });
+}); */

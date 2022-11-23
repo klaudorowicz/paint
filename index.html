@@ -8,10 +8,15 @@
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
+  
   <button id="setResolutionBtn">Resolution</button>
   <button id="clearBtn">Clear</button>
-  <button id="colorBtn" class="black">Black</button>
-  <button id="colorBtn" class="white">Eraser</button>
+  <input id="colorPicker" type="color" value="#000000" />
+  <button id="colorBtn" class="pickColor">Pick</button>
+  <button id="colorBtn" class="black" value="#000000">Black</button>
+  <button id="colorBtn" class="white" value="#ffffff">Eraser</button>
+  <button id="colorBtn" class="rainbow" value=rainbow>Rainbow</button>
+  <button id="colorBtn" class="randomColor">Random Color</button>
   <div class="paintContainer"></div>
   
   <script src="script.js"></script>

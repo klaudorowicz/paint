@@ -18,6 +18,10 @@ button {
   margin: 20px;
 }
 
+input {
+  margin: 20px;
+}
+
 .rows {
   flex: 1 1 auto;
   display: flex;
