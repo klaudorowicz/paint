@@ -5,8 +5,8 @@ const paintContainer = document.querySelector('.paintContainer');
 const setResolutionBtn = document.querySelector('#setResolutionBtn');
 const clearBtn = document.querySelector('#clearBtn');
 const colorBtn = document.querySelectorAll('#colorBtn');
-const colorPicker = document.querySelectorAll('#colorPicker');
-const pickColor = document.querySelectorAll('#pickColor');
+const colorPicker = document.querySelector('#colorPicker');
+const pickColor = document.querySelector('#pickColor');
 let mode = 'black';
 let colorRandom = 'pink';
 let sheetSize = 16;
@@ -95,12 +95,18 @@ document.addEventListener('mouseup', function(){
 
 colorBtn.forEach((btn) => {
   btn.addEventListener('click', function chooseMode(e) {
-    if (e.target.className == 'black') mode = 'black';
-    else if (e.target.className == 'white') mode = 'white';
-    else if (e.target.className == 'randomColor') mode = 'randomColor';
-    else if (e.target.className == 'rainbow') mode = 'rainbow'; randomColor();
-    return;
-  })
+    if (e.target.className == 'black') {
+      mode = 'black';
+  } else if (e.target.className == 'white') {
+      mode = 'white';
+    } else if (e.target.className == 'randomColor') {
+      mode = 'randomColor'; randomColor();
+    } else if (e.target.className == 'pickColor') {
+      mode = 'pickColor';
+    } else if (e.target.className == 'rainbow') {
+      mode = 'rainbow';
+    };
+  });
 });
 
 
@@ -115,24 +121,16 @@ document.addEventListener('mouseup', function(){
 
 function draw(e) {
   if (e.type === 'mouseover' && !trigger === true) return;
-  if (mode === 'black')  
+  if (mode === 'black') {
     e.target.style.backgroundColor = 'black';
-  if (mode === 'white')  
+  } else if (mode === 'white') {
     e.target.style.backgroundColor = 'white';
-  if (mode === 'rainbow')  
-    e.target.style.backgroundColor = choiceRainbow();
-  if (mode === 'randomColor') {
+  } else if (mode === 'rainbow') { 
+    e.target.style.backgroundColor = choiceRainbow(); 
+  } else if (mode === 'randomColor') {
     e.target.style.backgroundColor = colorRandom;
-  }
-};
-
-
-// Rainbow
-function rainbow(e) {
-  if (mode === 'rainbow') {
-    if (e.type === 'mouseover') {
-      return choiceRainbow();
-    };
+  } else if (mode === 'pickColor') {
+    e.target.style.backgroundColor = colorPicker.value;
   };
 };
 
