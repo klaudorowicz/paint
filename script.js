@@ -4,7 +4,8 @@
 const paintContainer = document.querySelector('.paintContainer');
 const setResolutionBtn = document.querySelector('#setResolutionBtn');
 const clearBtn = document.querySelector('#clearBtn');
-
+const colorBtn = document.querySelectorAll('#colorBtn');
+let color = 'black'
 let sheetSize = 16;
 let sheetSize2 = 16 * 16;
 
@@ -84,8 +85,10 @@ document.addEventListener('mouseup', function(){
       };
     });
   }); */
-// All of above didn't work after used button
 
+// All of above didn't work after use buttons
+
+// Draw(e)
 let trigger = false;
 document.addEventListener('mousedown', function(){
   trigger = true;
@@ -95,7 +98,15 @@ document.addEventListener('mouseup', function(){
 });
 
 function draw(e) {
-  if (e.type === 'mouseover' && trigger === true) {
-    e.target.style.backgroundColor = 'black';
+  if (e.type === 'mouseover' && trigger === true 
+  || e.type === 'mousedown') {
+    e.target.style.backgroundColor = color;
   };
 };
+
+// Change color
+colorBtn.forEach((newColor) => {
+  newColor.addEventListener('click', (e) => {
+    color = e.target.className;
+  })
+});

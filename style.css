@@ -10,9 +10,12 @@
   align-items: stretch;
 }
 
+button:first-of-type {
+  margin-left: 100px;
+}
+
 button {
   margin: 20px;
-  margin-left: 100px;
 }
 
 .rows {
