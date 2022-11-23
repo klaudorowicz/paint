@@ -22,8 +22,9 @@ button {
 
 .cell {
   flex: 1 1 auto;
+  user-select: none;
 }
 
-.cell:hover {
+/* .cell:hover {
 background-color: black;
-}
+} */
