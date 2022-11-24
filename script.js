@@ -99,12 +99,14 @@ colorBtn.forEach((btn) => {
       mode = 'black';
   } else if (e.target.className == 'white') {
       mode = 'white';
+    } else if (e.target.className == 'rainbow') {
+      mode = 'rainbow';
+    } else if (e.target.className == 'prettyRainbow') {
+      mode = 'prettyRainbow';
     } else if (e.target.className == 'randomColor') {
       mode = 'randomColor'; randomColor();
     } else if (e.target.className == 'pickColor') {
       mode = 'pickColor';
-    } else if (e.target.className == 'rainbow') {
-      mode = 'rainbow';
     };
   });
 });
@@ -127,6 +129,8 @@ function draw(e) {
     e.target.style.backgroundColor = 'white';
   } else if (mode === 'rainbow') { 
     e.target.style.backgroundColor = choiceRainbow(); 
+  } else if (mode === 'prettyRainbow') { 
+    e.target.style.backgroundColor = randomColor(); 
   } else if (mode === 'randomColor') {
     e.target.style.backgroundColor = colorRandom;
   } else if (mode === 'pickColor') {

@@ -1,25 +1,42 @@
+body {
+  padding: 0;
+  margin: 0;
+  background-color: rgb(231, 229, 229);
+}
+
+@font-face {
+  font-family: 'Bellota Text';
+  src: url(font/BellotaText-Regular.ttf) format('truetype');
+  font-weight: normal;
+}
+
+* {
+  font-family:"Bellota Text", "Roboto", sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 50px;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .paintContainer {
+  background-color: white;
   border: 1px solid black;
   width: 500px;
   height: 500px;
-  margin: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 30px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-}
-
-button:first-of-type {
-  margin-left: 100px;
-}
-
-button {
-  margin: 20px;
-}
-
-input {
-  margin: 20px;
+  flex: 0 1 auto;
 }
 
 .rows {
@@ -32,6 +49,94 @@ input {
   user-select: none;
 }
 
-/* .cell:hover {
-background-color: black;
-} */
+.palette,
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+button {
+  margin: 10px;
+  width: 140px;
+  height: 40px;;
+  font-size: 16px;
+  /* box-shadow: inset; */
+  cursor: pointer;
+  transition: all .15s ease;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#colorPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  border: 0;
+  margin: 10px;
+  padding: 0;
+  cursor: pointer;
+  height: 70px;
+  width: 70px;
+  transition: all .15s ease;
+}
+
+#colorPicker::-webkit-color-swatch {
+  border-radius: 20%;
+  border: 0;
+}
+#colorPicker::-moz-color-swatch {
+  border-radius: 50%;
+  border: 0;
+}
+
+
+button:hover,
+input:hover {
+  transform: scale(1.07);
+  /* transition: all .15s ease; */
+}
+
+
+
+
+
+
+/* @MEDIA */
+
+@media screen and (max-width: 900px) {
+  .settings {
+    order: 2;
+  }
+  .paintContainer {
+    order: 1;
+    margin-left: 130px;
+    margin-right: 130px;
+  }
+  .palette {
+    order: 3;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .paintContainer {
+    width: 300px;
+    height: 300px;
+    margin: 0 50px 0 50px;
+  }
+  .container {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .paintContainer {
+    width: 250px;
+    height: 250px;
+    margin: 0;
+  }
+}
