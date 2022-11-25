@@ -2,38 +2,36 @@
 
 // Query Selectors and Altering Elements
 const paintContainer = document.querySelector('.paintContainer');
-const setResolutionBtn = document.querySelector('#setResolutionBtn');
 const clearBtn = document.querySelector('#clearBtn');
 const colorBtn = document.querySelectorAll('#colorBtn');
 const colorPicker = document.querySelector('#colorPicker');
 const pickColor = document.querySelector('#pickColor');
-let sizeValue = document.querySelector('.sizeValue');
+let sizeText = document.querySelector('#sizeText');
 let sizeSlider = document.querySelector('#sizeSlider');
 let mode = 'black';
 let colorRandom = 'pink';
 let sheetSize = sizeSlider.value;
-let sheetSize2 = 16 * 16;
 
 // Start created worksheet
 setWorksheet();
 
-// function changeResolution() {
 
-// }
+// Set Resolution
 
-sizeSlider.addEventListener('change', (e) => {
+sizeText.addEventListener('change', function changeSizeText(e) {
   sheetSize = e.target.value;
-  setWorksheet();
-});
-
-
-// Set Resolution Button
-setResolutionBtn.addEventListener('click', function () {
-  sheetSize = prompt('Size of worksheet:', 16);
   sizeSlider.value = sheetSize;
   setWorksheet();
 });
 
+sizeSlider.addEventListener('change', function changeSizeSlider(e) {
+  sheetSize = e.target.value;
+  sizeText.value = sheetSize;
+  setWorksheet();
+});
+
+
+// Clear Button
 clearBtn.addEventListener('click', function() {
   removeAllChild();
   setWorksheet();
