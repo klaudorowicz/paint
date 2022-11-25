@@ -7,18 +7,30 @@ const clearBtn = document.querySelector('#clearBtn');
 const colorBtn = document.querySelectorAll('#colorBtn');
 const colorPicker = document.querySelector('#colorPicker');
 const pickColor = document.querySelector('#pickColor');
+let sizeValue = document.querySelector('.sizeValue');
+let sizeSlider = document.querySelector('#sizeSlider');
 let mode = 'black';
 let colorRandom = 'pink';
-let sheetSize = 16;
+let sheetSize = sizeSlider.value;
 let sheetSize2 = 16 * 16;
 
 // Start created worksheet
 setWorksheet();
 
+// function changeResolution() {
+
+// }
+
+sizeSlider.addEventListener('change', (e) => {
+  sheetSize = e.target.value;
+  setWorksheet();
+});
+
+
 // Set Resolution Button
-setResolutionBtn.addEventListener('click', function() {
+setResolutionBtn.addEventListener('click', function () {
   sheetSize = prompt('Size of worksheet:', 16);
-  sheetSize2 = sheetSize * sheetSize;
+  sizeSlider.value = sheetSize;
   setWorksheet();
 });
 
