@@ -8,6 +8,8 @@ const colorPicker = document.querySelector('#colorPicker');
 const pickColor = document.querySelector('#pickColor');
 let sizeText = document.querySelector('#sizeText');
 let sizeSlider = document.querySelector('#sizeSlider');
+
+
 let mode = 'black';
 let colorRandom = 'pink';
 let sheetSize = sizeSlider.value;
