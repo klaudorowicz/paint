@@ -18,6 +18,7 @@ body {
 a {
   text-decoration: none;
   color: black;
+  display: inline-block;
 }
 
 .title {
@@ -30,6 +31,7 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(6px 6px 6px #6d6d6d);
+  user-select: none;
 }
 
 .container {
@@ -67,6 +69,7 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 
@@ -83,6 +86,11 @@ button {
   border-radius: 5px;
   user-select: none;
 }
+
+button.active {
+  background-color: red;
+}
+
 .settings .div,
 input {
   margin: 10px;
@@ -194,9 +202,15 @@ input:hover {
 .icon-cancel-circled {
   color: red;
 }
+
 .icon-eraser {
   color: rgb(238, 129, 147);
 }
+
+.icon-up {
+  color: #c81919;
+}
+
 .icon-circle {
   text-shadow: none;
   background: -webkit-linear-gradient(30deg, #4285F4, rgba(0,0,255,0) 60%),
@@ -229,6 +243,7 @@ input:hover {
   background: linear-gradient( rgb(236, 235, 235), rgb(155, 155, 155) 50%);
   box-shadow: 0px -3px 20px rgb(255, 255, 255);
   color: black;
+  user-select: none;
 }
 
 

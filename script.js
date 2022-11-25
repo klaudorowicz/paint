@@ -5,11 +5,13 @@ const paintContainer = document.querySelector('.paintContainer');
 const clearBtn = document.querySelector('#clearBtn');
 const colorBtn = document.querySelectorAll('#colorBtn');
 const colorPicker = document.querySelector('#colorPicker');
-const pickColor = document.querySelector('#pickColor');
 let sizeText = document.querySelector('#sizeText');
 let sizeSlider = document.querySelector('#sizeSlider');
-
-
+let iconUp = document.querySelector('.icon-up');
+let iconBeaker = document.querySelector('.icon-beaker');
+const pencil = document.querySelector('.black')
+pencil.classList.add('active');
+let lastRecognitionOfChoice = pencil;
 let mode = 'black';
 let colorRandom = 'pink';
 let sheetSize = sizeSlider.value;
@@ -20,13 +22,13 @@ setWorksheet();
 
 // Set Resolution
 
-sizeText.addEventListener('change', function changeSizeText(e) {
+sizeText.addEventListener('change', (e) => {
   sheetSize = e.target.value;
   sizeSlider.value = sheetSize;
   setWorksheet();
 });
 
-sizeSlider.addEventListener('change', function changeSizeSlider(e) {
+sizeSlider.addEventListener('change', (e) => {
   sheetSize = e.target.value;
   sizeText.value = sheetSize;
   setWorksheet();
@@ -44,6 +46,11 @@ clearBtn.addEventListener('click', function() {
 function removeAllChild() {
   paintContainer.innerHTML = '';
 };
+
+// Change color for pick selector icon
+colorPicker.addEventListener('change', (e) => {
+  iconUp.style.color = e.target.value;
+});
 
 
 // Create Worksheet
@@ -67,6 +74,68 @@ function setWorksheet() {
   };
 };
 
+
+// Action when some button was clicked
+colorBtn.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    chooseMode(e.target)
+    recognitionOfChoice(e.target);
+  });
+});
+
+// Choose mode
+function chooseMode(btn) {
+  if (btn.className == 'black') {
+    mode = 'black';
+} else if (btn.className == 'white') {
+    mode = 'white';
+  } else if (btn.className == 'rainbow') {
+    mode = 'rainbow';
+  } else if (btn.className == 'prettyRainbow') {
+    mode = 'prettyRainbow';
+  } else if (btn.className == 'randomColor') {
+    mode = 'randomColor'; 
+    randomColor(); 
+    iconBeaker.style.color = colorRandom;
+  } else if (btn.className == 'pickColor') {
+    mode = 'pickColor';
+  };
+  return;
+}
+
+// Change class 'active' to current mode
+function recognitionOfChoice (btn) {
+  lastRecognitionOfChoice.classList.remove('active');
+  btn.classList.add('active');
+  lastRecognitionOfChoice = btn;
+}
+
+
+// Draw(e)
+let trigger = false;
+document.addEventListener('mousedown', function(){
+  trigger = true;
+});
+document.addEventListener('mouseup', function(){
+  trigger = false;
+});
+
+function draw(e) {
+  if (e.type === 'mouseover' && !trigger === true) return;
+  if (mode === 'black') {
+    e.target.style.backgroundColor = 'black';
+  } else if (mode === 'white') {
+    e.target.style.backgroundColor = 'white';
+  } else if (mode === 'rainbow') { 
+    e.target.style.backgroundColor = choiceRainbow(); 
+  } else if (mode === 'prettyRainbow') { 
+    e.target.style.backgroundColor = randomColor(); 
+  } else if (mode === 'randomColor') {
+    e.target.style.backgroundColor = colorRandom;
+  } else if (mode === 'pickColor') {
+    e.target.style.backgroundColor = colorPicker.value;
+  };
+};
 
 // TEST 1 - One point draw
 /* paintedCell.forEach((cell) => {
@@ -100,60 +169,13 @@ document.addEventListener('mouseup', function(){
       };
     });
   }); */
-
 // All of above didn't work after use buttons
 
-// Choose mode
 
-colorBtn.forEach((btn) => {
-  btn.addEventListener('click', function chooseMode(e) {
-    if (e.target.className == 'black') {
-      mode = 'black';
-  } else if (e.target.className == 'white') {
-      mode = 'white';
-    } else if (e.target.className == 'rainbow') {
-      mode = 'rainbow';
-    } else if (e.target.className == 'prettyRainbow') {
-      mode = 'prettyRainbow';
-    } else if (e.target.className == 'randomColor') {
-      mode = 'randomColor'; randomColor();
-    } else if (e.target.className == 'pickColor') {
-      mode = 'pickColor';
-    };
-  });
-});
-
-
-// Draw(e)
-let trigger = false;
-document.addEventListener('mousedown', function(){
-  trigger = true;
-});
-document.addEventListener('mouseup', function(){
-  trigger = false;
-});
-
-function draw(e) {
-  if (e.type === 'mouseover' && !trigger === true) return;
-  if (mode === 'black') {
-    e.target.style.backgroundColor = 'black';
-  } else if (mode === 'white') {
-    e.target.style.backgroundColor = 'white';
-  } else if (mode === 'rainbow') { 
-    e.target.style.backgroundColor = choiceRainbow(); 
-  } else if (mode === 'prettyRainbow') { 
-    e.target.style.backgroundColor = randomColor(); 
-  } else if (mode === 'randomColor') {
-    e.target.style.backgroundColor = colorRandom;
-  } else if (mode === 'pickColor') {
-    e.target.style.backgroundColor = colorPicker.value;
-  };
-};
-
+// Rainbow function = all color is heavy random (full scope/range)
 function choiceRainbow() {
   return `rgb(${(Math.random()*256).toFixed(0)}, ${(Math.random()*256).toFixed(0)}, ${(Math.random()*256).toFixed(0)}, ${Math.random().toFixed(3)})`;
 };
-
 
 // Pick random color
 function randomColor() {
