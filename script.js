@@ -21,7 +21,6 @@ setWorksheet();
 
 
 // Set Resolution
-
 sizeText.addEventListener('change', (e) => {
   sheetSize = e.target.value;
   sizeSlider.value = sheetSize;
@@ -56,7 +55,6 @@ colorPicker.addEventListener('change', (e) => {
 // Create Worksheet
 function setWorksheet() {
   removeAllChild();
-  let numCell = 0;
 
   for (let i = 0; i < sheetSize; i++) { 
     let rowInPaint = document.createElement('div');
@@ -64,7 +62,6 @@ function setWorksheet() {
     paintContainer.appendChild(rowInPaint);
 
     for(let j = 0; j < sheetSize; j++) {
-      numCell += 1;
       let divInPaint = document.createElement('div');
       divInPaint.className = `cell`;
       divInPaint.addEventListener('mouseover', draw);
@@ -93,14 +90,13 @@ function chooseMode(btn) {
     mode = 'rainbow';
   } else if (btn.className == 'prettyRainbow') {
     mode = 'prettyRainbow';
-  } else if (btn.className == 'randomColor') {
+  } else if (btn.className == 'randomColor' || mode == 'randomColor') {
     mode = 'randomColor'; 
     randomColor(); 
     iconBeaker.style.color = colorRandom;
   } else if (btn.className == 'pickColor') {
     mode = 'pickColor';
   };
-  return;
 }
 
 // Change class 'active' to current mode

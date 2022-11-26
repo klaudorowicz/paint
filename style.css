@@ -21,6 +21,10 @@ a {
   display: inline-block;
 }
 
+i {
+  pointer-events: none
+}
+
 .title {
   text-align: center;
   font-size: 60px;
@@ -88,7 +92,9 @@ button {
 }
 
 button.active {
-  background-color: red;
+  background-color: black;
+  color: white;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.452), 0px 0px 15px rgb(255, 0, 0);
 }
 
 .settings .div,
