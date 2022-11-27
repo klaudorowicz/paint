@@ -9,8 +9,10 @@ let sizeText = document.querySelector('#sizeText');
 let sizeSlider = document.querySelector('#sizeSlider');
 let iconUp = document.querySelector('.icon-up');
 let iconBeaker = document.querySelector('.icon-beaker');
-const pencil = document.querySelector('.black')
+const pencil = document.querySelector('.black');
+const grid = document.querySelector('#grid');
 pencil.classList.add('active');
+const inputs = document.querySelectorAll('input');
 let lastRecognitionOfChoice = pencil;
 let mode = 'black';
 let colorRandom = 'pink';
@@ -22,14 +24,36 @@ setWorksheet();
 
 // Set Resolution
 sizeText.addEventListener('change', (e) => {
-  sheetSize = e.target.value;
-  sizeSlider.value = sheetSize;
-  setWorksheet();
+  if (e.target.value > 0 && e.target.value < 100 && Number.isInteger(+e.target.value)) {
+    sheetSize = e.target.value;
+    sizeSlider.value = sheetSize;
+    setWorksheet();
+  }
+  else if (+e.target.value < 1 || +e.target.value > 99) {
+    e.target.value = 'From 1 to 99.';
+  } 
+  else if ( isNaN(+e.target.value) ) {
+    e.target.value = `It's not No.`;
+  } 
+  else if ( !Number.isInteger(+e.target.value) ) {
+    e.target.value = `Just Integer.`;
+  }
+  else {
+    e.target.value = `Error.`;
+  }
+  return;
+});
+
+// Focus all content in input sizeText
+sizeText.addEventListener('click', (e) => {
+  e.target.focus();
+  e.target.select();
 });
 
 sizeSlider.addEventListener('change', (e) => {
   sheetSize = e.target.value;
   sizeText.value = sheetSize;
+  validate(sizeText, patterns["range"]);
   setWorksheet();
 });
 
@@ -58,12 +82,13 @@ function setWorksheet() {
 
   for (let i = 0; i < sheetSize; i++) { 
     let rowInPaint = document.createElement('div');
-    rowInPaint.classList.add('rows');
+    rowInPaint.classList.add('row');
     paintContainer.appendChild(rowInPaint);
 
     for(let j = 0; j < sheetSize; j++) {
       let divInPaint = document.createElement('div');
       divInPaint.className = `cell`;
+      divInPaint.classList.add('no-border');
       divInPaint.addEventListener('mouseover', draw);
       divInPaint.addEventListener('mousedown', draw);
       rowInPaint.appendChild(divInPaint);
@@ -192,3 +217,32 @@ colorBtn.forEach((btn) => {
     return;
   });
 }); */
+
+
+// Regex for input sizeText
+const patterns = {
+  range:/^(0{1,})?([1-9][0-9]{0,1})$/,
+}
+
+inputs.forEach((input) => {
+  input.addEventListener('keyup',(e) => {
+    validate(e.target, patterns[e.target.attributes.name.value]);
+  });
+});
+
+function validate(field, regex){
+  if( regex.test(field.value) ) {
+    field.className = 'valid';
+  } else {
+    field.className = 'invalid';
+  }
+}
+
+// Grid button
+const cells = document.querySelectorAll('.cell');
+grid.addEventListener('click', () => {
+  grid.classList.toggle('active');
+  cells.forEach((cell) => {
+    cell.classList.toggle('no-border');
+  });
+});
