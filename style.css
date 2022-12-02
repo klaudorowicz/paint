@@ -64,12 +64,12 @@ i {
 .cell {
   flex: 1 1 auto;
   user-select: none;
-  border-left: 1px solid black;
-  border-top: 1px solid black;
+  border: 0;
 }
 
-.no-border {
-  border: 0;
+.border {
+  border-left: 1px solid black;
+  border-top: 1px solid black;
 }
 
 .palette,

@@ -60,14 +60,16 @@ sizeSlider.addEventListener('change', (e) => {
 
 // Clear Button
 clearBtn.addEventListener('click', function() {
-  removeAllChild();
+  removeAllChild(paintContainer);
   setWorksheet();
 });
 
 
 // Reset for paintContainer
-function removeAllChild() {
-  paintContainer.innerHTML = '';
+function removeAllChild(parent) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    };
 };
 
 // Change color for pick selector icon
@@ -78,7 +80,7 @@ colorPicker.addEventListener('change', (e) => {
 
 // Create Worksheet
 function setWorksheet() {
-  removeAllChild();
+  removeAllChild(paintContainer);
 
   for (let i = 0; i < sheetSize; i++) { 
     let rowInPaint = document.createElement('div');
@@ -88,7 +90,7 @@ function setWorksheet() {
     for(let j = 0; j < sheetSize; j++) {
       let divInPaint = document.createElement('div');
       divInPaint.className = `cell`;
-      divInPaint.classList.add('no-border');
+      // divInPaint.classList.add('no-border');
       divInPaint.addEventListener('mouseover', draw);
       divInPaint.addEventListener('mousedown', draw);
       rowInPaint.appendChild(divInPaint);
@@ -243,6 +245,10 @@ const cells = document.querySelectorAll('.cell');
 grid.addEventListener('click', () => {
   grid.classList.toggle('active');
   cells.forEach((cell) => {
-    cell.classList.toggle('no-border');
+    if (cell.className == 'cell') {
+      cell.classList.add('border');
+    } else {
+      cell.classList.remove('border');
+    }
   });
 });
