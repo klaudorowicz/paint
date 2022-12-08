@@ -26,8 +26,10 @@ setWorksheet();
 sizeText.addEventListener('change', (e) => {
   if (e.target.value > 0 && e.target.value < 100 && Number.isInteger(+e.target.value)) {
     sheetSize = e.target.value;
+    e.target.value = parseInt(sheetSize, 10);
     sizeSlider.value = sheetSize;
     setWorksheet();
+    doGrid()
   }
   else if (+e.target.value < 1 || +e.target.value > 99) {
     e.target.value = 'From 1 to 99.';
@@ -55,6 +57,7 @@ sizeSlider.addEventListener('change', (e) => {
   sizeText.value = sheetSize;
   validate(sizeText, patterns["range"]);
   setWorksheet();
+  doGrid()
 });
 
 
@@ -62,14 +65,15 @@ sizeSlider.addEventListener('change', (e) => {
 clearBtn.addEventListener('click', function() {
   removeAllChild(paintContainer);
   setWorksheet();
+  doGrid()
 });
 
 
 // Reset for paintContainer
 function removeAllChild(parent) {
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    };
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  };
 };
 
 // Change color for pick selector icon
@@ -89,13 +93,13 @@ function setWorksheet() {
 
     for(let j = 0; j < sheetSize; j++) {
       let divInPaint = document.createElement('div');
-      divInPaint.className = `cell`;
-      // divInPaint.classList.add('no-border');
+      divInPaint.classList.add(`cell`);
       divInPaint.addEventListener('mouseover', draw);
       divInPaint.addEventListener('mousedown', draw);
       rowInPaint.appendChild(divInPaint);
     };
   };
+
 };
 
 
@@ -242,13 +246,34 @@ function validate(field, regex){
 
 // Grid button
 const cells = document.querySelectorAll('.cell');
+
 grid.addEventListener('click', () => {
   grid.classList.toggle('active');
-  cells.forEach((cell) => {
-    if (cell.className == 'cell') {
-      cell.classList.add('border');
-    } else {
-      cell.classList.remove('border');
-    }
-  });
+  doGrid();
 });
+
+
+
+// Don't work after Clear / Change Resolution
+// cells.forEach((cell) => 
+// function doGrid() {
+//   cells.forEach((cell) => {
+//     if (cell.className.includes('border')) {
+//       cell.classList.remove('border');
+//       // cell.setAttribute('style', 'border: 0;');
+//     } else {
+//       cell.classList.add('border');
+//       // cell.setAttribute('style', 'border: 1px solid black;');
+//     }
+//   });
+// }
+
+function doGrid() {
+  for(let i = 0; i < paintContainer.children.length; i++){
+    for(let j = 0; j < paintContainer.children.length; j++){
+      paintContainer.children[i].children[j].classList = grid.classList == 'active'? 'cell border' : 'cell';
+    }
+  }
+}
+
+// paintContainer.children[i].children[j].style.border = grid.classList == 'active'? '1px solid black' : '';

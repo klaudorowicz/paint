@@ -31,11 +31,12 @@ i {
   margin-top: 80px;
   font-weight: bold;
   text-shadow: none;
-  background: -webkit-linear-gradient(-120deg, rgb(0, 0, 0) 25%,  rgb(110, 110, 110) 35%, rgb(0, 0, 0) 45%, rgb(184, 24, 24) 65%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   filter: drop-shadow(6px 6px 6px #6d6d6d);
   user-select: none;
+}
+
+.title .black {
+  
 }
 
 .container {
@@ -46,7 +47,7 @@ i {
 }
 
 .paintContainer {
-  background-color: white;
+  background-color: rgb(170, 170, 170);
   width: 500px;
   height: 500px;
   margin: 30px;
@@ -54,6 +55,7 @@ i {
   flex-direction: column;
   align-items: stretch;
   box-shadow: 10px 10px 30px #6d6d6d;
+  cursor:crosshair;
 }
 
 .row {
@@ -65,11 +67,15 @@ i {
   flex: 1 1 auto;
   user-select: none;
   border: 0;
+  background-color: white;
+}
+.cell:hover {
+  opacity: 70%;
 }
 
 .border {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
+  border-left: 0.1px solid black;
+  border-top: 0.1px solid black;
 }
 
 .palette,
